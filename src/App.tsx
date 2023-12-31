@@ -1,13 +1,22 @@
-import { Button } from './components/ui/button';
+import { Routes, Route, useLocation } from 'react-router-dom';
+// Pages
+import ScorePage from './_presentation/score/ScorePage';
+import GamePage from './_presentation/game/GamePage';
+import LoginPage from './_presentation/Login/LoginPage';
 
 function App() {
+    let location = useLocation();
+    let background = location.state && location.state.background;
+    console.log('background', background);
+
     return (
-        <div className="flex flex-1 bg-slate-500">
-            <div className="flex self-center justify-center w-full">
-                <h1 className="text-3xl font-bold underline bg-red-500">Tailwind is Working!</h1>
-                <Button>ShadCN is Working!</Button>
-            </div>
-        </div>
+        <>
+            <Routes location={background || location}>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/game" element={<GamePage />}></Route>
+            </Routes>
+            <Routes>{background && <Route path={`${background.pathname}/score`} element={<ScorePage />} />}</Routes>
+        </>
     );
 }
 
