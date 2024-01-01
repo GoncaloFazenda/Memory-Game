@@ -9,7 +9,7 @@ import { ToggleThemeButton } from './_presentation/_components/ui/toggleThemeBut
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-            <nav className="flex mx-6 my-3 justify-end">
+            <nav className=" absolute right-10 top-10">
                 <ToggleThemeButton />
             </nav>
             <Router>
