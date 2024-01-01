@@ -36,41 +36,44 @@ export default function LoginPage() {
     }
 
     return (
-        <section className="bg-white flex self-center m-auto flex-col w-full  max-w-4xl justify-center p-16 py-20 rounded-lg shadow-2xl">
-            <div className="mb-16 flex self-center group m-auto items-center justify-center bg-slate-100 p-4 rounded-lg px-20 shadow-sm transition duration-300 transform hover:scale-105 [&>*]:hover:text-indigo-600">
-                <text className="font-extrabold font-mono text-4xl group text-gray-800 group transition duration-300">
-                    Memory Game
-                </text>
-            </div>
-            <div className="flex w-full justify-between h-full">
-                <section className="flex flex-col w-full max-w-72 mt-6">
-                    <Label className="text-xl">Choose your username</Label>
-                    <Input
-                        className={
-                            usernameErrorMessage.length > 0
-                                ? 'outline-none mt-4 mb-3 ring-2 ring-offset-2 ring-destructive text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive focus-visible:ring-offset-2'
-                                : 'text-base mt-4 mb-3'
-                        }
-                        type="text"
-                        placeholder="ex: alex83"
-                        onChange={(e) => onChangeUsername(e)}
-                    />
-                    <Label className=" text-destructive mb-6">{usernameErrorMessage && usernameErrorMessage}</Label>
-                    <Button className="text-lg" onClick={onSubmitUsername}>
-                        Login
-                    </Button>
-                </section>
-                <div className="border-l-2 border-gray-900 pl-4 ml-4" />
-                <section className="flex flex-col self-center">
-                    <img
-                        src={
-                            'https://yt3.googleusercontent.com/ytc/AIf8zZSHOMg4U6RTiH4cx4r3LeQpz7HEk8O5baB1G2uujg=s900-c-k-c0x00ffffff-no-rj'
-                        }
-                        alt="Description of the image"
-                        className="w-72 h-72 rounded-lg shadow-2xl my-2"
-                    />
-                </section>
-            </div>
-        </section>
+        <>
+            <section className="bg-background border flex self-center m-auto flex-col w-full  max-w-4xl justify-center p-16 py-20 rounded-lg shadow-2xl">
+                <div className="mb-16 flex self-center border group m-auto items-center justify-center dark:bg-background light:bg-slate-100 p-4 rounded-lg px-20 shadow-sm transition duration-300 transform hover:scale-125 [&>*]:hover:text-indigo-600">
+                    <text className="font-extrabold text-3xl group light:text-gray-800 dark:text-foreground group transition duration-300">
+                        Memory Game
+                    </text>
+                </div>
+                <div className="flex w-full justify-between h-full">
+                    <section className="flex flex-col w-full max-w-72 mt-6">
+                        <Label className="text-lg">Choose your username</Label>
+                        <Input
+                            className={
+                                usernameErrorMessage.length > 0
+                                    ? 'outline-none mt-4 mb-3 ring-2 ring-offset-2 ring-destructive text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive focus-visible:ring-offset-2'
+                                    : 'text-lg mt-4 mb-3'
+                            }
+                            type="text"
+                            placeholder="ex: alex83"
+                            onChange={(e) => onChangeUsername(e)}
+                        />
+                        <Label className=" text-destructive mb-6">{usernameErrorMessage && usernameErrorMessage}</Label>
+                        <Button className="text-lg" onClick={onSubmitUsername}>
+                            Login
+                        </Button>
+                    </section>
+                    <div className="border-l-2 border-gray-900 pl-4 ml-4" />
+                    <section className="flex flex-col self-center">
+                        <img
+                            src={
+                                'https://yt3.googleusercontent.com/ytc/AIf8zZSHOMg4U6RTiH4cx4r3LeQpz7HEk8O5baB1G2uujg=s900-c-k-c0x00ffffff-no-rj'
+                            }
+                            alt="Description of the image"
+                            className="rounded-lg shadow-2xl my-2"
+                            width={275}
+                        />
+                    </section>
+                </div>
+            </section>
+        </>
     );
 }
