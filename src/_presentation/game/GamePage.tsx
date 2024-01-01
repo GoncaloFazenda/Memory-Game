@@ -1,6 +1,8 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '../_components/ui/button';
 import { logout } from '@/useCases/user';
+import IncreaseOnHover from '../_components/ui/increaseOnHover';
+import UtilityGameMenu from './components/utilityGameMenu';
 
 export default function GamePage() {
     let location = useLocation();
@@ -12,19 +14,15 @@ export default function GamePage() {
     }
 
     return (
-        <div className="flex flex-1 ">
-            <div className="flex self-center justify-center w-full">
-                <h1 className="text-3xl font-bold underline bg-red-500">Tailwind is Working!</h1>
-                <h1 className="text-3xl font-bold underline bg-blue-500">
-                    {localStorage.getItem('username') && localStorage.getItem('username')}
-                </h1>
-                <Link to={'/game/score'} state={{ background: location }}>
-                    ScorePage
-                </Link>
-                <Button className="" onClick={onLogout}>
-                    Logout
-                </Button>
-            </div>
-        </div>
+        <main className="flex flex-1 flex-col">
+            <IncreaseOnHover title="Neon Memory Game" titleStyles="text-5xl" />
+            <section className="flex self-center justify-center w-full">
+                <section></section>
+                <UtilityGameMenu title={localStorage.getItem('username')!} timeInSeconds={3}>
+                    <Button onClick={() => navigate('/game/score', { state: { background: location } })}>Scoreboard</Button>
+                    <Button onClick={onLogout}>Logout</Button>
+                </UtilityGameMenu>
+            </section>
+        </main>
     );
 }

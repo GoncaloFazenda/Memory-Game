@@ -7,6 +7,7 @@ import { User, UserCredentials } from '../../entities/user';
 import { validationErrorWrapper } from '../../utils/helpers';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../useCases/user';
+import IncreaseOnHover from '../_components/ui/increaseOnHover';
 
 export default function LoginPage() {
     let navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function LoginPage() {
         }
     }
 
-    async function onSubmitUsername() {
+    async function onLoginUsername() {
         const error = checkUsername({ username });
         if (error.length === 0) {
             login(username);
@@ -41,12 +42,8 @@ export default function LoginPage() {
     }
 
     return (
-        <section className="bg-background border flex self-center m-auto flex-col w-full  max-w-4xl justify-center p-16 py-20 rounded-lg shadow-2xl">
-            <div className="mb-16 flex self-center border group m-auto items-center justify-center dark:bg-background light:bg-slate-100 p-4 rounded-lg px-20 shadow-sm transition duration-300 transform hover:scale-125 [&>*]:hover:text-purple-600">
-                <text className="font-extrabold text-4xl group light:text-gray-800 dark:text-foreground group transition duration-300">
-                    Memory Game
-                </text>
-            </div>
+        <section className="bg-background border flex self-center m-auto flex-col w-full  max-w-4xl justify-center p-16 py-20 rounded-md shadow-2xl">
+            <IncreaseOnHover title="Memory Game" />
             <div className="flex w-full justify-between h-full">
                 <section className="flex flex-col w-full max-w-72 mt-6">
                     <Label className="text-lg">Choose your username</Label>
@@ -61,7 +58,7 @@ export default function LoginPage() {
                         onChange={(e) => onChangeUsername(e)}
                     />
                     <Label className=" text-destructive mb-6">{usernameErrorMessage && usernameErrorMessage}</Label>
-                    <Button className="text-lg" onClick={onSubmitUsername}>
+                    <Button className="text-lg" onClick={onLoginUsername}>
                         Login
                     </Button>
                 </section>
@@ -70,7 +67,7 @@ export default function LoginPage() {
                     <img
                         src={letsPlayImage}
                         alt="Neon Lighs Let's Play Image"
-                        className="rounded-lg shadow-2xl my-2"
+                        className="rounded-md shadow-2xl my-2"
                         width={275}
                     />
                 </section>
