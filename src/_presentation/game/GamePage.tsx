@@ -1,8 +1,16 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Button } from '../_components/ui/button';
+import { logout } from '@/useCases/user';
 
 export default function GamePage() {
     let location = useLocation();
-    console.log('localStorage', localStorage.getItem('username'));
+    let navigate = useNavigate();
+
+    function onLogout() {
+        logout();
+        navigate('/');
+    }
+
     return (
         <div className="flex flex-1 ">
             <div className="flex self-center justify-center w-full">
@@ -13,6 +21,9 @@ export default function GamePage() {
                 <Link to={'/game/score'} state={{ background: location }}>
                     ScorePage
                 </Link>
+                <Button className="" onClick={onLogout}>
+                    Logout
+                </Button>
             </div>
         </div>
     );

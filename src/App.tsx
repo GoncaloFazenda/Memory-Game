@@ -1,8 +1,9 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 // Pages
 import ScorePage from './_presentation/score/ScorePage';
 import GamePage from './_presentation/game/GamePage';
 import LoginPage from './_presentation/Login/LoginPage';
+import PrivateRoutes from './navigation/PrivateRoutes';
 
 function App() {
     let location = useLocation();
@@ -12,9 +13,18 @@ function App() {
         <>
             <Routes location={background || location}>
                 <Route path="/" element={<LoginPage />} />
-                <Route path="/game" element={<GamePage />}></Route>
+                <Route element={<PrivateRoutes />}>
+                    <Route path="/game" element={<GamePage />}></Route>
+                    <Route path="*" element={<Navigate to="/" />}></Route>
+                </Route>
             </Routes>
-            <Routes>{background && <Route path={`${background.pathname}/score`} element={<ScorePage />} />}</Routes>
+            {background && (
+                <Routes>
+                    <Route element={<PrivateRoutes />}>
+                        <Route path={`${background.pathname}/score`} element={<ScorePage />} />
+                    </Route>
+                </Routes>
+            )}
         </>
     );
 }
