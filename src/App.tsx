@@ -7,7 +7,6 @@ import LoginPage from './_presentation/Login/LoginPage';
 function App() {
     let location = useLocation();
     let background = location.state && location.state.background;
-    console.log('background', background);
 
     return (
         <>
