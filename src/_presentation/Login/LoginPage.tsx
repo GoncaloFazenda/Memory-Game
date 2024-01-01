@@ -1,6 +1,7 @@
 import { Button } from '@/_presentation/_components/ui/button';
 import { Input } from '@/_presentation/_components/ui/input';
 import { Label } from '@/_presentation/_components/ui/label';
+import letsPlayImage from '@/assets/letsPlay.jpg';
 import { useState } from 'react';
 import { User, UserCredentials } from '../../entities/user';
 import { validationErrorWrapper } from '../../utils/helpers';
@@ -41,7 +42,7 @@ export default function LoginPage() {
 
     return (
         <section className="bg-background border flex self-center m-auto flex-col w-full  max-w-4xl justify-center p-16 py-20 rounded-lg shadow-2xl">
-            <div className="mb-16 flex self-center border group m-auto items-center justify-center dark:bg-background light:bg-slate-100 p-4 rounded-lg px-20 shadow-sm transition duration-300 transform hover:scale-125 [&>*]:hover:text-indigo-600">
+            <div className="mb-16 flex self-center border group m-auto items-center justify-center dark:bg-background light:bg-slate-100 p-4 rounded-lg px-20 shadow-sm transition duration-300 transform hover:scale-125 [&>*]:hover:text-purple-600">
                 <text className="font-extrabold text-4xl group light:text-gray-800 dark:text-foreground group transition duration-300">
                     Memory Game
                 </text>
@@ -67,10 +68,8 @@ export default function LoginPage() {
                 <div className="border-l-2 border-gray-900 pl-4 ml-4" />
                 <section className="flex flex-col self-center">
                     <img
-                        src={
-                            'https://yt3.googleusercontent.com/ytc/AIf8zZSHOMg4U6RTiH4cx4r3LeQpz7HEk8O5baB1G2uujg=s900-c-k-c0x00ffffff-no-rj'
-                        }
-                        alt="Description of the image"
+                        src={letsPlayImage}
+                        alt="Neon Lighs Let's Play Image"
                         className="rounded-lg shadow-2xl my-2"
                         width={275}
                     />
