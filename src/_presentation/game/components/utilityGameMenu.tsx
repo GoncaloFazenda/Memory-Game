@@ -19,12 +19,12 @@ export default function UtilityGameMenu(props: Props) {
 
     useEffect(() => {
         formatTime(props.timeInSeconds);
-    }, []);
+    }, [props.timeInSeconds]);
 
     return (
-        <section className="flex flex-col py-12 px-11  border rounded-md  w-full max-w-96 text-center ">
-            <h2 className="text-4xl font-bold truncate overflow-hidden mt-6">{props.title}</h2>
-            <div className="flex flex-col text-center my-44">
+        <section className="flex flex-col pb-12 pt-7 px-6  border rounded-md  w-full max-w-80 text-center justify-between ">
+            <h2 className="text-4xl font-bold truncate overflow-hidden text-primary dark:text-lighterPrimary">{props.title}</h2>
+            <div className="flex flex-col text-center">
                 <h3 className="text-lg font-bold">Time</h3>
                 <h2 className="text-3xl font-bold underline">{formattedTime}</h2>
             </div>
