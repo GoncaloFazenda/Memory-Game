@@ -44,7 +44,7 @@ export default function LoginPage() {
     return (
         <section className="bg-background border flex self-center m-auto flex-col w-full  max-w-4xl justify-center p-16 py-20 rounded-md shadow-2xl">
             <div className="flex flex-col justify-center place-items-center">
-                <IncreaseOnHover title="Memory Game" />
+                <IncreaseOnHover title="Memory Game" containerStyles="dark:bg-background bg-slate-50" />
             </div>
             <div className="flex w-full justify-between h-full">
                 <section className="flex flex-col w-full max-w-72 mt-6">

@@ -22,7 +22,7 @@ export default function UtilityGameMenu(props: Props) {
     }, [props.timeInSeconds]);
 
     return (
-        <section className="flex flex-col pb-12 pt-7 px-6  border rounded-md  w-full max-w-80 text-center justify-between ">
+        <section className="flex flex-col pb-12 pt-7 px-6  border rounded-md  w-full max-w-80 text-center justify-between bg-white dark:bg-background ">
             <h2 className="text-4xl font-bold truncate overflow-hidden text-primary dark:text-lighterPrimary">{props.title}</h2>
             <div className="flex flex-col text-center">
                 <h3 className="text-lg font-bold">Time</h3>

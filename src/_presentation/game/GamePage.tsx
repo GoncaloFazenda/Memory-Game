@@ -5,11 +5,18 @@ import IncreaseOnHover from '../_components/ui/increaseOnHover';
 import UtilityGameMenu from './components/utilityGameMenu';
 import { useState } from 'react';
 import Card from './components/card';
+import useImageLoader from '@/hooks/useImageLoader';
 
 export default function GamePage() {
     let location = useLocation();
     let navigate = useNavigate();
     const [timeInSeconds, setTimeInSeconds] = useState<number>(0);
+
+    const { getImagesByQuantity } = useImageLoader({
+        request: { url: import.meta.env.VITE_IMAGE_API_BASEURL + '/search?query=neon%20lights' },
+    });
+
+    console.log(getImagesByQuantity(6));
 
     function onLogout() {
         logout();
@@ -18,11 +25,11 @@ export default function GamePage() {
 
     return (
         <main className="flex flex-1 flex-col justify-center items-center place-content-center">
-            <IncreaseOnHover title="Neon Memory Game" titleStyles="text-6xl" containerStyles="mb-24" />
+            <IncreaseOnHover title="Neon Memory Game" titleStyles="text-7xl" containerStyles="mb-24" />
             <section className="flex justify-center w-full  ">
                 <section className="flex flex-wrap   max-w-6xl ">
-                    {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((item) => (
-                        <div key={item} className="w-1/5 mr-7 mb-7 ">
+                    {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((item, index) => (
+                        <div key={index} className="w-1/5 mr-7 mb-7 ">
                             <Card />
                         </div>
                     ))}

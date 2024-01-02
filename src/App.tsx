@@ -10,7 +10,7 @@ function App() {
     let background = location.state && location.state.background;
 
     return (
-        <>
+        <div className="flex flex-1 dark:bg-background bg-slate-100">
             <Routes location={background || location}>
                 <Route path="/" element={<LoginPage />} />
                 <Route element={<PrivateRoutes />}>
@@ -25,7 +25,7 @@ function App() {
                     </Route>
                 </Routes>
             )}
-        </>
+        </div>
     );
 }
 
