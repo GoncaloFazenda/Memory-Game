@@ -1,5 +1,5 @@
 import letsPlayImage from '@/assets/letsPlay.jpg';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type props = {
     cardId: number;

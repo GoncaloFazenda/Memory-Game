@@ -1,35 +1,31 @@
 import { Card, CardList } from '@/entities/card';
 
 export default class Game {
-    private startTime: number;
-    private elapsedTime: number;
+    private time: number;
     private intervalId: any;
-    private observers: any;
+    private paused: boolean;
+    private observer: any;
     private cards: CardList;
     private prevFlippedCard: CardList;
     private solvedCards: Map<number, Card>;
 
     constructor(initialCards: CardList) {
-        this.startTime = 0;
-        this.elapsedTime = 0;
-        this.cards = [];
         this.intervalId = null;
-        this.observers = [];
+        this.paused = false;
+        this.observer = null;
+        this.time = 0;
+        this.cards = [];
         this.prevFlippedCard = [];
         this.solvedCards = new Map();
         this.gameStarter(initialCards);
     }
 
-    addObserver(observer: any) {
-        this.observers.push(observer);
+    public addObserver(observer: any) {
+        this.observer = observer;
     }
 
-    addObservers(observers: any) {
-        this.observers = this.observers.concat(observers);
-    }
-
-    notifyObservers() {
-        this.observers.forEach((observer: any) => observer(this.elapsedTime));
+    private notifyObservers() {
+        this.observer(this.time);
     }
 
     private gameStarter(initialCards: CardList) {
@@ -42,45 +38,27 @@ export default class Game {
         let cardDeck = this.createCardDeck(cards);
         let shuffleCardDeck: CardList = this.shuffleCardDeck(cardDeck);
 
-        console.log('startGame');
-
         // Setting a unique identifier for each card
         shuffleCardDeck.forEach((card: any, index: number) => {
             shuffleCardDeck[index] = { ...card, id: index };
         });
         this.cards = shuffleCardDeck;
-        this.setLocalCardDeck();
-
-        // this.gameInProgress = true;
-        // this.startTime = Date.now();
-        // this.intervalId = setInterval(() => {
-        //     this.elapsedTime = Math.floor((Date.now() - this.startTime) / 1000);
-        //     this.notifyObservers();
-        // }, 1000);
-        return this.cards;
+        this.setLocalGameData();
     }
 
     public reconnect() {
-        console.log('recconect');
-
-        this.cards = this.getLocalCardDeck();
-        return this.cards;
+        this.cards = JSON.parse(localStorage.getItem('CardDeck') || 'null');
+        this.prevFlippedCard = JSON.parse(localStorage.getItem('PrevFlippedCard') || 'null');
+        this.solvedCards = new Map(JSON.parse(localStorage.getItem('SolvedCards') || 'null'));
+        this.time = JSON.parse(localStorage.getItem('Time') || 'null');
+        this.paused = JSON.parse(localStorage.getItem('Paused') || 'null');
     }
 
-    public pauseGame() {
-        clearInterval(this.intervalId);
-    }
-
-    public resumeGame() {}
-
-    public endGame() {
-        clearInterval(this.intervalId);
-    }
-
-    public isGameFinished() {
+    public isGameFinished(): number | undefined {
         if (this.solvedCards.size === this.cards.length) {
+            this.stopTimer();
             this.clearLocalStorage();
-            return true;
+            return this.time;
         }
     }
 
@@ -92,6 +70,7 @@ export default class Game {
         if (this.prevFlippedCard.length === 0) {
             this.cards[card.id].isFlipped = true;
             this.prevFlippedCard.push(card);
+            this.setLocalGameData();
             return this.cards;
         }
 
@@ -99,6 +78,7 @@ export default class Game {
         if (this.prevFlippedCard.length === 1 && this.prevFlippedCard[0].id === card.id) {
             this.cards[card.id].isFlipped = false;
             this.prevFlippedCard = [];
+            this.setLocalGameData();
             return this.cards;
         }
 
@@ -108,6 +88,7 @@ export default class Game {
             this.solvedCards.set(card.id, card);
             this.solvedCards.set(this.prevFlippedCard[0].id, this.prevFlippedCard[0]);
             this.prevFlippedCard = [];
+            this.setLocalGameData();
             this.isGameFinished();
             return this.cards;
         }
@@ -116,6 +97,7 @@ export default class Game {
         this.cards[this.prevFlippedCard[0].id].isFlipped = false;
         this.cards[card.id].isFlipped = false;
         this.prevFlippedCard = [];
+        this.setLocalGameData();
         return this.cards;
     }
 
@@ -140,16 +122,53 @@ export default class Game {
         return cardDeck;
     }
 
+    public startTimer() {
+        if (!this.intervalId) {
+            this.intervalId = setInterval(() => {
+                if (!this.paused) {
+                    this.time++;
+                    this.setLocalTime();
+                    this.notifyObservers();
+                }
+            }, 1000);
+        }
+    }
+
+    public pauseTimer() {
+        this.paused = true;
+        this.setLocalPause();
+    }
+
+    public resume() {
+        this.paused = false;
+        this.setLocalPause();
+    }
+
+    public stopTimer() {
+        clearInterval(this.intervalId);
+        this.intervalId = null;
+        this.paused = false;
+    }
+
     private clearLocalStorage() {
         localStorage.removeItem('CardDeck');
+        localStorage.removeItem('PrevFlippedCard');
+        localStorage.removeItem('SolvedCards');
+        localStorage.removeItem('Time');
     }
 
-    private setLocalCardDeck() {
+    private setLocalGameData() {
         localStorage.setItem('CardDeck', JSON.stringify(this.cards));
+        localStorage.setItem('PrevFlippedCard', JSON.stringify(this.prevFlippedCard));
+        localStorage.setItem('SolvedCards', JSON.stringify([...this.solvedCards]));
     }
 
-    private getLocalCardDeck() {
-        return JSON.parse(localStorage.getItem('CardDeck') || 'null');
+    private setLocalTime() {
+        localStorage.setItem('Time', JSON.stringify(this.time));
+    }
+
+    private setLocalPause() {
+        localStorage.setItem('Paused', JSON.stringify(this.paused));
     }
 
     public getCards() {
