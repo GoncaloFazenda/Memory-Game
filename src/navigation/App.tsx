@@ -1,9 +1,9 @@
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 // Pages
-import ScorePage from './_presentation/score/ScorePage';
-import GamePage from './_presentation/game/GamePage';
-import LoginPage from './_presentation/login/LoginPage';
-import PrivateRoutes from './navigation/PrivateRoutes';
+import ScorePage from '../_presentation/score/ScorePage';
+import GamePage from '../_presentation/game/GamePage';
+import LoginPage from '../_presentation/login/LoginPage';
+import PrivateRoutes from './PrivateRoutes';
 
 function App() {
     let location = useLocation();

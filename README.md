@@ -1,30 +1,47 @@
-# React + TypeScript + Vite
+# Neon Memory Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## React + TypeScript + Vite
 
-Currently, two official plugins are available:
+## Description
 
--   [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
--   [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The Neon Memory Game project is a classic card-matching game designed to test and improve your memory skills. It challenges players to find matching pairs of cards within a set of face-down cards.
 
-## Expanding the ESLint configuration
+Disclaimer: I'm including the .env file in the repo since it is private in order to make the initial setup easier but feel free to change it.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Project Structure
 
--   Configure the top-level `parserOptions` property like this:
+### Source structure `src`
 
-```js
-export default {
-    // other rules...
-    parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        project: ['./tsconfig.json', './tsconfig.node.json'],
-        tsconfigRootDir: __dirname,
-    },
-};
-```
+-   `_presentation/`: UI components and screens for the presentation layer.
+-   `assest/`: Static assets like images, icons, and fonts.
+-   `entities/`: Data entities and models for application logic w/ Validations.
+-   `hooks/`: Custom React hooks for reusable logic.
+-   `navigation/`: Navigation logic and routing configurations.
+-   `store/`: Presisted data
+-   `useCases/`: Application use cases and business logic.
+-   `utils/`: Utility functions for common tasks.
 
--   Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
--   Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
--   Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### 2. Presentation `_presentation`
+
+-   `_components/`: Reusable React components for modularity (global app use intended).
+-   `[PageName]`: This contains the page screen and a folder ./components to store related reuseble UI.
+
+### 3. Configuration Files
+
+-   `.gitignore`: List of files/directories to be ignored by Git.
+-   `package.json`: Project information, dependencies, and scripts.
+
+### 4. Documentation
+
+-   `README.md`: Project documentation.
+-   `docs/`: Other documents or manuals.
+
+## Getting Started
+
+1. Clone the repository: `git clone https://github.com/GoncaloFazenda/Memory-Game`
+2. Install dependencies: `yarn install`
+3. Run the application: `yarn start`
+
+This Project has Prittier and some ESLint rules enabled.
+
+#### Author: Gonçalo Fazenda
