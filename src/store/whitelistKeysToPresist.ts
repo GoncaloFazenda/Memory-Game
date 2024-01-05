@@ -1,1 +1,1 @@
-export const whitelistKeys = ['username'];
+export const whitelistKeys = ['username', 'ScoreBoard'];

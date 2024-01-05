@@ -139,7 +139,7 @@ export default class Game {
         this.setLocalPause();
     }
 
-    public resume() {
+    public resumeTimer() {
         this.paused = false;
         this.setLocalPause();
     }
