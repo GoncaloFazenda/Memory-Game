@@ -12,6 +12,7 @@ Disclaimer: I'm including the .env file in the repo since it is private in order
 
 ### Source structure `src`
 
+-   `main.tsx`: Where everything starts from.
 -   `_presentation/`: UI components and screens for the presentation layer.
 -   `assest/`: Static assets like images, icons, and fonts.
 -   `entities/`: Data entities and models for application logic w/ Validations.
