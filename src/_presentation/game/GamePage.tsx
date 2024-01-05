@@ -5,7 +5,7 @@ import IncreaseOnHover from '../_components/ui/increaseOnHover';
 import UtilityGameMenu from './components/utilityGameMenu';
 import { useEffect, useState } from 'react';
 import GameBoard from './components/gameBoard';
-import { CardList } from '@/entities/card';
+import { Card, CardList } from '@/entities/card';
 import useFetchLoader from '@/hooks/useFetchLoader';
 
 export default function GamePage() {
@@ -16,7 +16,7 @@ export default function GamePage() {
 
     const { images } = useFetchLoader({
         request: {
-            url: import.meta.env.VITE_IMAGE_API_BASEURL + '/search?query=neon%20lights',
+            url: import.meta.env.VITE_IMAGE_API_BASEURL + '/search?query=neon%20lights&per_page=6',
             options: {
                 headers: {
                     Authorization: import.meta.env.VITE_IMAGE_API_KEY,
@@ -32,9 +32,8 @@ export default function GamePage() {
     }
 
     function formatImagesToCardListData(data: any): CardList {
-        return data.map((item: any) => {
-            const { id, src } = item;
-            return { [id]: { imgURL: src.original, isFlipped: false } };
+        return data.map((item: any, index: number): Card => {
+            return { id: index, imgURL: item.src.original, isFlipped: false };
         });
     }
 
@@ -42,7 +41,7 @@ export default function GamePage() {
         <main className="flex flex-1 flex-col justify-center items-center place-content-center">
             <IncreaseOnHover title="Neon Memory Game" titleStyles="text-7xl" containerStyles="mb-24" />
             <section className="flex justify-center w-full">
-                <GameBoard cards={formatImagesToCardListData(images)} />
+                {images.length && <GameBoard cards={formatImagesToCardListData(images)} />}
                 <UtilityGameMenu title={localStorage.getItem('username')!} timeInSeconds={timeInSeconds}>
                     <Button onClick={() => navigate('/game/score', { state: { background: location } })}>Scoreboard</Button>
                     <Button className="bg-destructive hover:bg-destructive hover:opacity-90" onClick={onLogout}>

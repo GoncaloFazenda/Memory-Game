@@ -7,12 +7,12 @@ import { ThemeProvider } from './_presentation/_components/theme-provider.tsx';
 import Header from './navigation/components/Header.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
-        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-            <Header />
-            <Router>
-                <App />
-            </Router>
-        </ThemeProvider>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+        <Header />
+        <Router>
+            <App />
+        </Router>
+    </ThemeProvider>
+    // </React.StrictMode>
 );
