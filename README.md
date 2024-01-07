@@ -1,6 +1,6 @@
 # Neon Memory Game
 
-## React + TypeScript + Vite
+## React + TypeScript + Tailwind + Vite
 
 ## Description
 

@@ -61,7 +61,11 @@ export default function GamePage() {
             navigate({ ...location, ...location.state, state: { from: 'GamePage' } }, { replace: true });
         }
         setGameEnded(false);
-    }, [location]);
+    }, [location.state]);
+
+    useEffect(()=>{
+        console.log("game state ",gameEnded)
+    },[gameEnded])
 
     return (
         <main className="flex flex-1 flex-col justify-center items-center place-content-center">

@@ -21,7 +21,7 @@ export default function UtilityGameMenu({ title, timeInSeconds, children }: Prop
 
     return (
         <section className="flex flex-col pb-12 pt-10 px-6  border rounded-md  w-full max-w-80 min-h-96 text-center justify-between bg-white dark:bg-background ">
-            <h2 className="text-4xl none font-bold truncate overflow-hidden text-primary dark:text-lighterPrimary">{title}</h2>
+            <h2 className="text-4xl none font-bold truncate overflow-hidden text-primary dark:text-lighterPrimary p-1">{title}</h2>
             <div className="flex flex-col text-center">
                 <h3 className="text-lg font-bold">Time</h3>
                 <h2 className={`text-3xl font-bold ${timeInSeconds !== 0 && 'underline'}`}>
