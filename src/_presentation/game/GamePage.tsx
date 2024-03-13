@@ -64,6 +64,10 @@ export const GamePage = () => {
         setGameEnded(false);
     }, [location.state]);
 
+    useEffect(() => {
+        console.log('game state ', gameEnded);
+    }, [gameEnded]);
+
     return (
         <main className="flex flex-1 flex-col justify-center items-center place-content-center">
             <IncreaseOnHover title="Neon Memory Game" titleStyles="text-7xl" containerStyles="mb-20" />
