@@ -1,15 +1,13 @@
-import { Button } from '@/_presentation/_components/ui/button';
-import { Input } from '@/_presentation/_components/ui/input';
-import { Label } from '@/_presentation/_components/ui/label';
 import letsPlayImage from '@/assets/letsPlay.jpg';
 import { useState } from 'react';
-import { User, UserCredentials } from '../../entities/user';
 import { validationErrorWrapper } from '../../utils/helpers';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../../useCases/user';
-import IncreaseOnHover from '../_components/ui/increaseOnHover';
+import { login } from '@/useCases';
 
-export default function LoginPage() {
+import { User, UserCredentials } from '@/entities';
+import { Label, Input, Button, IncreaseOnHover } from '@/_presentation/_components/ui';
+
+export const LoginPage = () => {
     let navigate = useNavigate();
     const [username, setUsername] = useState<string>('');
     const [usernameErrorMessage, setUsernameErrorMessage] = useState<string>('');
@@ -66,14 +64,9 @@ export default function LoginPage() {
                 </section>
                 <div className="border-l-2 border-gray-900 pl-4 ml-4" />
                 <section className="flex flex-col self-center">
-                    <img
-                        src={letsPlayImage}
-                        alt="Neon Lighs Let's Play Image"
-                        className="rounded-md shadow-2xl my-2"
-                        width={275}
-                    />
+                    <img src={letsPlayImage} alt="Neon Lighs Let's Play Image" className="rounded-md shadow-2xl my-2" width={275} />
                 </section>
             </div>
         </section>
     );
-}
+};

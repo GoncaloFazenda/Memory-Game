@@ -7,7 +7,7 @@ type Props = {
     onClick?: () => void;
 };
 
-export default function IncreaseOnHover(props: Props) {
+export function IncreaseOnHover(props: Props) {
     return (
         <div
             onClick={() => props.onClick && props.onClick()}
@@ -16,12 +16,7 @@ export default function IncreaseOnHover(props: Props) {
                 props.containerStyles
             )}
         >
-            <h1
-                className={twMerge(
-                    'font-extrabold text-4xl light:text-gray-800 dark:text-foreground group transition duration-300',
-                    props.titleStyles
-                )}
-            >
+            <h1 className={twMerge('font-extrabold text-4xl light:text-gray-800 dark:text-foreground group transition duration-300', props.titleStyles)}>
                 {props.title}
             </h1>
         </div>

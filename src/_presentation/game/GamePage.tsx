@@ -1,15 +1,15 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '../_components/ui/button';
 import { logout } from '@/useCases/user';
-import IncreaseOnHover from '../_components/ui/increaseOnHover';
 import UtilityGameMenu from './components/utilityGameMenu';
 import { useEffect, useState } from 'react';
 import GameBoard from './components/gameBoard';
-import { Card, CardList } from '@/entities/card';
-import useFetchLoader from '@/hooks/useFetchLoader';
 import { formatTime } from '@/utils/helpers';
+import { useFetchLoader } from '@/hooks';
+import ClipLoader from 'react-spinners/ClipLoader';
+import { Card, CardList } from '@/entities';
+import { IncreaseOnHover, Button } from '@/_presentation/_components/ui';
 
-export default function GamePage() {
+export const GamePage = () => {
     let location = useLocation();
     let navigate = useNavigate();
 
@@ -50,7 +50,7 @@ export default function GamePage() {
 
     function formatImagesToCardListData(data: any): CardList {
         return data.map((item: any, index: number): Card => {
-            return { id: index, imgURL: item.src.original, isFlipped: false };
+            return { id: index, imgURL: item.src.medium, isFlipped: false };
         });
     }
 
@@ -58,17 +58,18 @@ export default function GamePage() {
         const previousPage = location?.state?.from;
         if (previousPage === 'ScorePage') {
             setPauseTimer(false);
-            navigate({ ...location, ...location.state, state: { from: 'GamePage' } }, { replace: true });
+            // Clearing the navigation state
+            navigate({});
         }
         setGameEnded(false);
-    }, [location]);
+    }, [location.state]);
 
     return (
         <main className="flex flex-1 flex-col justify-center items-center place-content-center">
             <IncreaseOnHover title="Neon Memory Game" titleStyles="text-7xl" containerStyles="mb-20" />
             {gameEnded && <h1 className={'font-extrabold text-4xl  mb-14 text-green-500 '}>Congradulations !!</h1>}
             <section className="flex justify-center w-full ">
-                {images.length > 0 && (
+                {images.length > 0 && !loading ? (
                     <GameBoard
                         cards={formatImagesToCardListData(images)}
                         onGameFinished={onGameFinished}
@@ -77,6 +78,10 @@ export default function GamePage() {
                         isLoading={loading}
                         newGame={gameEnded}
                     />
+                ) : (
+                    <div style={{ minWidth: 954, minHeight: 708, display: 'flex', justifyContent: 'center' }}>
+                        <ClipLoader color={'#000088'} loading={true} size={100} className="flex self-center" />
+                    </div>
                 )}
                 <div className="ml-44" />
                 <UtilityGameMenu title={localStorage.getItem('username')!} timeInSeconds={timeInSeconds}>
@@ -88,4 +93,4 @@ export default function GamePage() {
             </section>
         </main>
     );
-}
+};

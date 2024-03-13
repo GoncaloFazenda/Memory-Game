@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import CardComponent from './card';
-import ClipLoader from 'react-spinners/ClipLoader';
-import { Card, CardList } from '@/entities/card';
+import { Card, CardList } from '@/entities';
 import Game from '../gameLogic';
+import letsPlayImage from '@/assets/letsPlay.jpg';
+import { FlipCardComponent } from './flipCardComponent';
 
 type Props = {
     cards: CardList;
@@ -15,23 +15,9 @@ type Props = {
 
 export default function GameBoard(props: Props) {
     const [cards, setCards] = useState<CardList>(props.cards);
-    const [triggerNewGame, setTriggerNewGame] = useState<boolean>(false);
-    // prevent creating new instance of game on every re-render
-    let game = useMemo(() => new Game(props.cards), [triggerNewGame]);
 
-    useEffect(() => {
-        setCards(game.getCards());
-        game.addObserver((currentTime: number) => props.getCurrentTime(currentTime));
-        game.startTimer();
-        // return () => {
-        //     game.stopTimer();
-        // };
-    }, [props.cards]);
-
-    useEffect(() => {
-        if (props.pauseTimer) return game.pauseTimer();
-        else game.resumeTimer();
-    }, [props.pauseTimer]);
+    // prevents creating new instances of the game on every re-render
+    let game = useMemo(() => new Game(props.cards), [props.newGame]);
 
     function handleCardClick(card: Card) {
         game.handleCardClick(card);
@@ -43,32 +29,38 @@ export default function GameBoard(props: Props) {
     }
 
     useEffect(() => {
-        if (props.newGame) {
-            setTriggerNewGame(!triggerNewGame);
-        }
-    }, [props.newGame]);
+        if (props.pauseTimer) return game.pauseTimer();
+        else game.resumeTimer();
+    }, [props.pauseTimer]);
+
+    useEffect(() => {
+        setCards(game.getCards());
+        game.addObserver((currentTime: number) => props.getCurrentTime(currentTime));
+        game.startTimer();
+    }, [props.cards]);
 
     return (
         <section
             style={{ minWidth: 954, minHeight: 708 }}
-            className={props.isLoading ? `flex justify-center max-w-7xl` : `grid grid-cols-4 grid-rows-3 gap-7 max-w-7xl`}
+            className={props.isLoading ? `flex justify-center max-w-7xl min-w-7xl` : `grid grid-cols-4 grid-rows-3 gap-7 max-w-7xl min-w-7xl`}
         >
-            {props.isLoading && <ClipLoader color={'#000888'} loading={props.isLoading} size={50} className="flex self-center" />}
-            {cards.length > 0 &&
-                !props.isLoading &&
-                cards.map((card, index) => {
-                    let cardProps = { ...card };
-                    return (
-                        <div key={index} className=" flex flex-col max-h-56 max-w-56  ">
-                            <CardComponent
-                                cardId={cardProps.id}
-                                imgURL={cardProps.imgURL}
-                                isFlipped={cardProps.isFlipped}
-                                onClick={() => handleCardClick(cardProps)}
+            {useMemo(
+                () =>
+                    cards.length > 0 &&
+                    cards?.map((card: Card) => {
+                        let cardProps = { ...card };
+                        return (
+                            <FlipCardComponent
+                                key={cardProps.id}
+                                card={cardProps}
+                                frontImgURL={letsPlayImage}
+                                backImgURL={card.imgURL}
+                                onClick={handleCardClick}
                             />
-                        </div>
-                    );
-                })}
+                        );
+                    }),
+                [cards]
+            )}
         </section>
     );
 }

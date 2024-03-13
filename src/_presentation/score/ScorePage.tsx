@@ -1,15 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/_presentation/_components/ui/table';
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/_presentation/_components/ui/table';
 
-export default function ScorePage() {
+export const ScorePage = () => {
     let navigate = useNavigate();
 
     return (
@@ -27,17 +19,15 @@ export default function ScorePage() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {JSON.parse(localStorage.getItem('ScoreBoard') || '[]').map(
-                            (item: { username: string; time: string }) => (
-                                <TableRow key={item.username}>
-                                    <TableCell className="font-medium">{item.username}</TableCell>
-                                    <TableCell className="text-right">{item.time}</TableCell>
-                                </TableRow>
-                            )
-                        )}
+                        {JSON.parse(localStorage.getItem('ScoreBoard') || '[]').map((item: { username: string; time: string }) => (
+                            <TableRow key={item.username}>
+                                <TableCell className="font-medium">{item.username}</TableCell>
+                                <TableCell className="text-right">{item.time}</TableCell>
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
             </div>
         </div>
     );
-}
+};

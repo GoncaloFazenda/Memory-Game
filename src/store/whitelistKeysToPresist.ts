@@ -1,1 +1,1 @@
-export const whitelistKeys = ['username', 'ScoreBoard'];
+export const whitelistKeys = ['vite-ui-theme', 'ScoreBoard'];

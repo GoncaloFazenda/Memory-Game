@@ -1,4 +1,3 @@
-import { CardList } from '@/entities/card';
 import { useEffect, useState } from 'react';
 
 interface RequestData {
@@ -10,7 +9,7 @@ type Props = {
     request: RequestData;
 };
 
-const useFetchLoader = ({ request }: Props) => {
+export const useFetchLoader = ({ request }: Props) => {
     const [images, setImages] = useState<any>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -35,5 +34,3 @@ const useFetchLoader = ({ request }: Props) => {
 
     return { images, loading, error };
 };
-
-export default useFetchLoader;

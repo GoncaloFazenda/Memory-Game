@@ -1,4 +1,4 @@
-import { Card, CardList } from '@/entities/card';
+import { Card, CardList } from '@/entities';
 
 export default class Game {
     private time: number;

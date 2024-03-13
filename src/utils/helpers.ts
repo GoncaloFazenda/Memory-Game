@@ -1,4 +1,4 @@
-import { whitelistKeys } from '@/store/whitelistKeysToPresist';
+import { whitelistKeys } from '@/store';
 import moment from 'moment';
 import * as z from 'zod';
 
